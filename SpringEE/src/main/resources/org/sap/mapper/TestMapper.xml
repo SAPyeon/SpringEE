@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!--   namespace =인터페이스 패키지 경로.인터페이스이름  -->
+  <mapper namespace="org.sap.mapper.TestMapper">
+  
+  <!-- id로 추상메서드 이름을 입력하여  연결 , 
+  	select문은 resultSet이 필요하기 때문에 결과값의 타입을 의미함, 
+  	추상메서드의 리턴타입을 String으로 했으니 String으로 설정 --> 
+  <select id="getTime" resultType="String">
+    select sysdate();
+  </select>
+</mapper>

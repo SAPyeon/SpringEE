@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.sap.mapper.MemberMapper">
+	<insert id="signup">
+		insert into member(id, password, name, addr)
+		values(#{id},#{password},#{name},#{addr});
+	</insert>
+	<select id="list" resultType="org.sap.model.MemberVo">
+		select * from member;
+	</select>
+	<select id="mypage" resultType="org.sap.model.MemberVo">
+		select *
+		from member
+		where id=#{id};
+	</select>
+	<update id="modify">
+		update member
+		set password = #{password}, name = #{name}, addr = #{addr} 
+		where id = #{id};
+	</update>
+</mapper>
