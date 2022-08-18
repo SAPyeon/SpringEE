@@ -25,6 +25,6 @@ public interface BoardMapper {
 	public void remove(BoardVo bvo);
 
 	// board테이블에 전체건수에 해당되는 DB설계
-	public int total();
+	public int total(CriteriaVo cri);
 
 }

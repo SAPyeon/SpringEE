@@ -12,25 +12,27 @@
 		<table>
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" value="${mypage.id}" disabled></td>
+				<td><input type="text" value="${mypage.id}" name="id"></td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="text" value="${mypage.password}"></td>
+				<td><input type="text" value="${mypage.password}" name="password"></td>
 			</tr>
 			<tr>
 				<td>이름</td>
-				<td><input type="text" value="${mypage.name}"></td>
+				<td><input type="text" value="${mypage.name}" name="name"></td>
 			</tr>
 			<tr>
 				<td>주소</td>
-				<td><input type="text" value="${mypage.addr}"></td>
+				<td><input type="text" value="${mypage.addr}" name="addr"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="수정" formaction="/member/modify"></td>
 				<td><input type="submit" value="삭제" formaction="/member/remove"></td>
+				<td><a href="/member/list">목록으로</a></td>
 			</tr>
 		</table>
 	</form>
+	
 </body>
 </html>

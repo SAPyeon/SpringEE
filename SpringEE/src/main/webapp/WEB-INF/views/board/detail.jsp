@@ -11,7 +11,7 @@
 		<h1>상세페이지</h1>
 		<table>
 			<tr>
-				<td><input type="text" value="${detail.bno}" name="bno" hidden></td>
+				<td><input type="hidden" value="${detail.bno}" name="bno"></td>
 			</tr>
 			<tr>
 				<td>제목</td>
@@ -28,5 +28,6 @@
 			</tr>
 		</table>
 	</form>
+	<ul></ul>
 </body>
 </html>

@@ -14,11 +14,22 @@
 	<select id="mypage" resultType="org.sap.model.MemberVo">
 		select *
 		from member
-		where id=#{id};
+		where
+		id=#{id};
 	</select>
 	<update id="modify">
 		update member
-		set password = #{password}, name = #{name}, addr = #{addr} 
+		set password = #{password}, name =
+		#{name}, addr = #{addr}
 		where id = #{id};
 	</update>
+	<delete id="remove">
+		delete from member
+		where id = #{id};
+	</delete>
+	<select id="login" resultType="org.sap.model.MemberVo">
+		select * 
+		from member 
+		where id = #{id} and password = #{password};
+	</select>
 </mapper>

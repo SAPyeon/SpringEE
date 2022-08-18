@@ -16,8 +16,23 @@
 		select @rownum:=@rownum+1 rownum, b.*
 		from board b,(select
 		@rownum:=0) as tmp
+		<if test="keyword != null">
+			<choose>
+				<when test="type=='T'.toString()">
+					where title like concat('%', #{keyword}, '%')
+				</when>
+				<when test="type=='C'.toString()">
+					where content like concat('%', #{keyword}, '%')
+				</when>
+				<otherwise>
+					where title  like concat('%', #{keyword}, '%')
+					OR content like concat('%', #{keyword}, '%')
+				</otherwise>
+			</choose>
+		</if>
 		order by bno desc
-		) as boardlist
+		) as
+		boardlist
 		<![CDATA[
 		where rownum > (#{pageNum}-1)*#{amount} and rownum <=#{pageNum}*#{amount}
 		]]>
@@ -30,21 +45,34 @@
 	<update id="cntup">
 		update board
 		set cnt = cnt+1
-		where bno = #{bno}
+		where bno = #{bno};
 	</update>
 	<update id="modify">
 		update board
-		set title = #{title}, content =
-		#{content}
+		set title = #{title} , content = #{content}
 		where bno = #{bno};
 	</update>
 
 	<delete id="remove">
 		delete from board
-		where bno=#{bno}
+		where bno=#{bno};
 	</delete>
 
 	<select id="total" resultType="int">
 		select count(*) from board
+		<if test="keyword != null">
+			<choose>
+				<when test="type=='T'.toString()">
+					where title like concat('%', #{keyword}, '%')
+				</when>
+				<when test="type=='C'.toString()">
+					where content like concat('%', #{keyword}, '%')
+				</when>
+				<otherwise>
+					where title  like concat('%', #{keyword}, '%')
+					OR content like concat('%', #{keyword}, '%')
+				</otherwise>
+			</choose>
+		</if>
 	</select>
 </mapper>

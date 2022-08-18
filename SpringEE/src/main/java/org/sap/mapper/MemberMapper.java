@@ -13,4 +13,8 @@ public interface MemberMapper {
 	public MemberVo mypage(MemberVo mvo);
 	//회원정보 수정 DB설계
 	public void modify(MemberVo mvo);
+	//회원정보 삭제 DB설계
+	public void remove(MemberVo mvo);
+	//로그인정보 DB설계
+	public MemberVo login(MemberVo mvo);
 }

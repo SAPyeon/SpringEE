@@ -17,5 +17,5 @@ public interface BoardService {
 	// 글 삭제 페이지 설계
 	public void remove(BoardVo bvo);
 	//board테이블 전체건수 설계
-	public int total();
+	public int total(CriteriaVo cri);
 }

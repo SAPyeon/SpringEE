@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class BoardController {
 	@Autowired
 	BoardService bs;
-
+	
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
 	// 게시판 목록 리스트
 	public String list(Model model, CriteriaVo cri) {
@@ -24,7 +24,7 @@ public class BoardController {
 	//list.jsp 실행할 때 PageVo에 저장되어 있는 데이터를 가져와라
 	//                           생성자호출(매개변수가 두개인 생성자)
 	//board테이블(게시판테이블)에 전체 건수(select해서)를 아래에 59대신에 대입
-	int total = bs.total();
+	int total = bs.total(cri);
 	//model.addAttribute("paging",new PageVo(cri,59));
 	model.addAttribute("paging",new PageVo(cri,total));
 	return "board/list";
@@ -52,7 +52,6 @@ public class BoardController {
 	
 	//RedirectAttributes 포함하여 작성
 	@RequestMapping(value = "/board/modify", method = RequestMethod.POST)
-	// public void detail(int bno){}로도 가능
 	public String modify(BoardVo bvo, RedirectAttributes rttr) {
 	//글 수정
 	bs.modify(bvo);

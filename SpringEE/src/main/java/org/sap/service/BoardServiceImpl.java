@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService {
 		bm.remove(bvo);
 	}
 
-	public int total() {
-		return bm.total();
+	public int total(CriteriaVo cri) {
+		return bm.total(cri);
 	}
 }

@@ -1,13 +1,17 @@
 package org.sap.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.sap.model.BoardVo;
 import org.sap.model.MemberVo;
 import org.sap.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -42,13 +46,37 @@ public class MemberController {
 	// 회원정보수정
 	@RequestMapping(value = "/member/modify", method = RequestMethod.POST)
 	public String modify(MemberVo mvo, RedirectAttributes rttr) {
-	//글 수정
-	ms.modify(mvo);
-	rttr.addAttribute("id", mvo.getId());
-	return "redirect:/member/mypage";
+		// 글 수정
+		ms.modify(mvo);
+		rttr.addAttribute("id", mvo.getId());
+		return "redirect:/member/mypage";
 	}
-	//회원정보 삭제
-	
+
+	// 회원정보 삭제
+	@RequestMapping(value = "/member/remove", method = RequestMethod.POST)
+	public String remove(MemberVo mvo) {
+		// 글 수정
+		ms.remove(mvo);
+		return "redirect:/member/list";
+	}
+
 	// 로그인
-	// 로그아웃
+	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
+	public void login(MemberVo mvo, HttpSession session) {
+		ms.login(mvo,session);
+	}
+	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
+	public ModelAndView loginPost(@ModelAttribute MemberVo mvo, HttpSession session) {
+		MemberVo name = ms.login(mvo, session);
+		ModelAndView mav = new ModelAndView();
+		if (name != null) { // 로그인 성공 시
+			mav.setViewName("/"); // 뷰의 이름
+		} else { // 로그인 실패 시
+			mav.setViewName("member/login");
+			mav.addObject("message", "error");
+		}
+		return mav;
+	}
+
+// 로그아웃
 }
