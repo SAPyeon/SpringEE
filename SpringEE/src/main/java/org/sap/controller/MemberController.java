@@ -27,7 +27,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/signup", method = RequestMethod.POST)
 	public String signupPost(MemberVo mvo) {
 		ms.signup(mvo);
-		return "redirect:/member/list";
+		return "redirect:/member/login";
 	}
 
 	// 멤버리스트
@@ -63,14 +63,16 @@ public class MemberController {
 	// 로그인
 	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
 	public void login(MemberVo mvo, HttpSession session) {
-		ms.login(mvo,session);
+		ms.login(mvo, session);
 	}
+
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
 	public ModelAndView loginPost(@ModelAttribute MemberVo mvo, HttpSession session) {
 		MemberVo name = ms.login(mvo, session);
 		ModelAndView mav = new ModelAndView();
 		if (name != null) { // 로그인 성공 시
-			mav.setViewName("/"); // 뷰의 이름
+			mav.setViewName("/home"); // 뷰의 이름
+			mav.addObject("message", "success");
 		} else { // 로그인 실패 시
 			mav.setViewName("member/login");
 			mav.addObject("message", "error");
@@ -78,5 +80,13 @@ public class MemberController {
 		return mav;
 	}
 
-// 로그아웃
+	// 로그아웃
+	@RequestMapping(value = "/member/logout", method = RequestMethod.POST)
+	public ModelAndView logout(HttpSession session, ModelAndView mav) {
+		ms.logout(session);
+		mav.setViewName("member/login");
+		mav.addObject("message", "logout");
+		return mav;
+	}
+
 }

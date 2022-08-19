@@ -1,5 +1,7 @@
 package org.sap.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.sap.model.BoardVo;
 import org.sap.model.CriteriaVo;
 import org.sap.model.PageVo;
@@ -18,7 +20,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
 	// 게시판 목록 리스트
-	public String list(Model model, CriteriaVo cri) {
+	public String list(Model model, CriteriaVo cri, HttpSession session) {
 	//list.jsp 실행할 때 select된 결과를 가져가라.
 	model.addAttribute("list", bs.list(cri));
 	//list.jsp 실행할 때 PageVo에 저장되어 있는 데이터를 가져와라
@@ -27,6 +29,7 @@ public class BoardController {
 	int total = bs.total(cri);
 	//model.addAttribute("paging",new PageVo(cri,59));
 	model.addAttribute("paging",new PageVo(cri,total));
+	System.out.println(session.getAttribute("userid"));
 	return "board/list";
 	}
 	

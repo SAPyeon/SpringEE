@@ -37,11 +37,14 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVo login(MemberVo mvo, HttpSession session) {
 		MemberVo name = mm.login(mvo);
 		if (name != null) { // 세션 변수 저장
-			session.setAttribute("userid", mvo.getId());
-			session.setAttribute("name", name);
+			session.setAttribute("userid", name.getId());
+			session.setAttribute("name", name.getName());
 		}
 		System.out.println(session.getAttribute("userid"));
 		System.out.println(session.getAttribute("name"));
 		return name;
+	}
+	public void logout(HttpSession session) {
+		session.invalidate();
 	}
 }

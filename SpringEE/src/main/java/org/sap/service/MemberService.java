@@ -19,4 +19,6 @@ public interface MemberService {
 	public void remove(MemberVo mvo);
 	//로그인 설계
 	public MemberVo login(MemberVo mvo, HttpSession session);
+	//로그아웃 설계
+	public void logout(HttpSession session);
 }
