@@ -30,9 +30,10 @@
 			<option value="T">제목</option>
 			<option value="C">게시글</option>
 			<option value="TC">제목+게시글</option>
-		</select> <input type="text" name="keyword"> <input type="text"
+		</select> <input type="text" name="keyword"> 
+		<input type="hidden"
 			name="pageNum" value="${paging.cri.pageNum}"> <input
-			type="text" name="amount" value="${paging.cri.amount}"> <input
+			type="hidden" name="amount" value="${paging.cri.amount}"> <input
 			type="button" value="검색" id="search">
 	</form>
 	<table border="1">

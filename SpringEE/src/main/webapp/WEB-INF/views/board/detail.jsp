@@ -8,6 +8,11 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/js/reply.js"></script>
+<style type="text/css">
+li{
+list-style: none;
+}
+</style>
 </head>
 <body>
 	<form method="post">
@@ -39,10 +44,10 @@
 		<textarea rows="5" cols="50" id="reply"></textarea>
 		<button type="button" id="btn_add">댓글쓰기</button>
 	</div>
-	<div>
+	<div id="chat">
 		<ul id="replyUL">
-
 		</ul>
 	</div>
+	
 </body>
 </html>

@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+${message}
 	<h1>로그인하기</h1>
 	<form action="/member/login" method="post">
 		<table>

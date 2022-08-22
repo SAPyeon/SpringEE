@@ -36,4 +36,28 @@ public class ReplyController {
 		return new ResponseEntity<>(rs.list(bno), HttpStatus.OK);
 						 
 	}
+		//댓글수정하기
+		@RequestMapping(value = "/replies/modify", method = RequestMethod.PUT)
+		public ResponseEntity<String> replymodify(@RequestBody ReplyVo reply) {
+			//update가 성공했으면 result변수에 1저장
+			//update가 실패했으면 result변수에 0저장
+			//rs.modify(reply);
+			System.out.println(reply);
+			int result = rs.modify(reply);
+			//result가 1이면 HttpStatus.OK
+			//result가 0이면 HttpStatus.INTERNAL_SERVER_ERROR 메세지를 띄움
+			return result == 1?new ResponseEntity<>("success", HttpStatus.OK)
+					  :new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		//댓글삭제하기
+		@RequestMapping(value = "/replies/remove/{rno}", method = RequestMethod.DELETE)
+		public ResponseEntity<String> replyremove(@PathVariable int rno) {
+			System.out.println("삭제="+rno);
+			//rs.remove(rno);
+			int result = rs.remove(rno);
+			return result == 1?new ResponseEntity<>("success", HttpStatus.OK)
+					  :new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+
 }
