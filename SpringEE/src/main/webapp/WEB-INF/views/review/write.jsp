@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>리뷰쓰기</h1>
-	<form action="/review/write" method="post">
+	<form action="/review/write" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>평점</td>
@@ -35,7 +35,7 @@
 				<td><input type="file" name="img_file" ></td>
 			</tr>
 			<tr>
-				<td colspan="2"><button>글쓰기</button></td>
+				<td colspan="2"><button>리뷰쓰기</button></td>
 			</tr>
 		</table>
 	</form>

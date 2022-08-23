@@ -72,7 +72,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 		if (name != null) { // 로그인 성공 시
 			mav.setViewName("/home"); // 뷰의 이름
-			mav.addObject("message", "success");
+			mav.addObject("message", "success"); //뷰로 이동할 때 가져갈 변수 message에 success값을 넣음
 		} else { // 로그인 실패 시
 			mav.setViewName("member/login");
 			mav.addObject("message", "error");
