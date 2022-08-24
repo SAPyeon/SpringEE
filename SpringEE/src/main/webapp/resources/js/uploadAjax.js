@@ -37,9 +37,8 @@ $(document).ready(function(){
 		//console.log(inputFile);
 		var files = inputFile[0].files;
 		// console.log(files);
-		
+
 		for(var i=0; i<files.length; i++){
-			
 			//함수 호출(checkExtension)
 			if(!checkExtension(files[i].name, files[i].size)){
 				return false;
@@ -55,7 +54,11 @@ $(document).ready(function(){
 			url : "/uploadAjaxAction",
 			data : formData, // 데이터를 formData메서드를 사용함
 			contentType: false, //자바에서 충돌을 방지하기 위해 contentType과 processData를 false로 함
-			processData: false	
+			processData: false,
+			dataType:"json",
+			success:function(result){
+				console.log(result);
+			}
 		})//ajax끝
 		
 	})//클릭이벤트 끝

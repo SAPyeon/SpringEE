@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<td>이미지</td>
-				<td><input type="file" name="img_file" ></td>
+				<td><input type="file" name="uploadFile" ></td>
 			</tr>
 			<tr>
 				<td colspan="2"><button>리뷰쓰기</button></td>

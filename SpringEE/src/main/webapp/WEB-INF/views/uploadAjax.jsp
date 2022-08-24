@@ -14,7 +14,11 @@
 		<input type="file" name="uploadFile" multiple>
 	</div>
 	<div>
-		<input type="button" id="uploadBtn" value="파일전송" >
+		<input type="button" id="uploadBtn" value="파일전송">
+
 	</div>
+	<div>
+		<!-- <img src="/resources/img/10261708_h.jpg"> -->
+		</div>
 </body>
 </html>
