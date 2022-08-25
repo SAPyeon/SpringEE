@@ -17,8 +17,12 @@
 		<input type="button" id="uploadBtn" value="파일전송">
 
 	</div>
-	<div>
-		<!-- <img src="/resources/img/10261708_h.jpg"> -->
-		</div>
+	<div id="uploadResult">
+		<ul>
+			<!-- <img src="/resources/img/10261708_h.jpg"> -->
+		</ul>
+	</div>
 </body>
 </html>
+
+

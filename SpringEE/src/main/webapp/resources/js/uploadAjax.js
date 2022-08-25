@@ -28,7 +28,8 @@ $(document).ready(function(){
 	
 	
 	//파일전송버튼(id="uploadBtn")을 클릭하면
-	$("#uploadBtn").on("click",function(){
+	$("#uploadBtn").on("click",function(e){
+		e.preventDefault();
 		//alert('hi')
 		//파일 업로드 관련 로직 처리
 		//.jsp의 form태그를 대체(FormData함수)
@@ -50,7 +51,7 @@ $(document).ready(function(){
 		
 		//ajax를 통해서 uploadController에 파일 관련 데이터 전송
 		$.ajax({
-			type : "post",
+			type : "POST",
 			url : "/uploadAjaxAction",
 			data : formData, // 데이터를 formData메서드를 사용함
 			contentType: false, //자바에서 충돌을 방지하기 위해 contentType과 processData를 false로 함
@@ -58,6 +59,24 @@ $(document).ready(function(){
 			dataType:"json",
 			success:function(result){
 				console.log(result);
+				var str = "";
+				$(result).each(function(i,obj){
+					//console.log(obj.uploadPath)
+					//만약 image결과가 true면
+					if(obj.image){
+						//아래를 실행
+						var filePath = encodeURIComponent(obj.uploadPath+"/" + obj.uuid + "_" + obj.fileName); //uri주소로 바꿔줌 \\ -> %로
+						console.log(filePath)
+						str+=`<li><img src = "/display?fileName=${filePath}"></li>`;	
+					}else{//그렇지 않으면
+						//다운로드 할 수 있도록 실행
+						var filePath = encodeURIComponent(obj.uploadPath+"/" + obj.uuid + "_" + obj.fileName); //uri주소로 바꿔줌 \\ -> %로
+						str = `<li><a href="/download?fileName=${filePath}">${obj.fileName}</a></li>`
+					}										
+				})
+				
+				$("#uploadResult ul").html(str);
+					
 			}
 		})//ajax끝
 		

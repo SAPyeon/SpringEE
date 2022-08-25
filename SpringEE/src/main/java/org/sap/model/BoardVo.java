@@ -1,5 +1,7 @@
 package org.sap.model;
-	
+
+import java.util.ArrayList;
+
 public class BoardVo {
 	// 게시판번호(bno)
 	private int bno;
@@ -13,6 +15,8 @@ public class BoardVo {
 	private int cnt;
 	// 아이디(id)
 	private String id;
+	//AttachFileVo(파일 업로드 관련 model)
+	private ArrayList<AttachFileVo> attach;
 	
 	//getter and setter 메소드
 	public int getBno() {
@@ -52,13 +56,16 @@ public class BoardVo {
 		this.id = id;
 	}
 	
+	public ArrayList<AttachFileVo> getAttach() {
+		return attach;
+	}
+	public void setAttach(ArrayList<AttachFileVo> attach) {
+		this.attach = attach;
+	}
 	@Override
 	public String toString() {
 		return "BoardVo [bno=" + bno + ", title=" + title + ", content=" + content + ", regdate=" + regdate + ", cnt="
-				+ cnt + ", id=" + id + "]";
+				+ cnt + ", id=" + id + ", attach=" + attach + "]";
 	}
-	
-	
-	
 	
 }

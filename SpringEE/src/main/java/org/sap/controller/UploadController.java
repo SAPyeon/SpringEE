@@ -10,9 +10,13 @@ import java.util.Date;
 import java.util.UUID;
 
 import org.sap.model.AttachFileVo;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -89,8 +93,6 @@ public class UploadController {
 	}
 	
 	
-	
-	
 	@RequestMapping(value = "/uploadAjaxAction", method = RequestMethod.POST)
 	public ResponseEntity<ArrayList<AttachFileVo>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		
@@ -109,7 +111,7 @@ public class UploadController {
 		}
 
 		// for(배열명:변수명)
-		for (MultipartFile multipartFile : uploadFile) {
+		for (MultipartFile multipartFile:uploadFile) {
 			
 			//AttachFileVo 클래스의 새로운 주소를 반복적으로 생성하여
 			//ArrayList에 저장
@@ -132,29 +134,30 @@ public class UploadController {
 			attachVo.setUuid(uuid.toString());
 			
 			// 파일저장
+			String uploadFileName = uuid.toString() + "_" + multipartFile.getOriginalFilename();
+			
 			// 어느폴더에, 어떤파일이름으로
-			File saveFile = new File(uploadPath, uuid.toString() + "_" + multipartFile.getOriginalFilename());
+			File saveFile = new File(uploadPath, uploadFileName);
 			System.out.println(saveFile);
 			
 			// 파일을 전송(transferTo)
 			try { // transferTo() 메서드에 예외가 있으면
-				
 				multipartFile.transferTo(saveFile); //서버로 원본파일 전송
 				//내가 서버에 올리고자 하는 파일이 이미지이면,
 				if(checkImageType(saveFile)) {
 					//AttachFileVo의 image 변수에 저장()
 					attachVo.setImage(true);					
 					System.out.println("abcd");
+					
 					//파일 생성
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uuid.toString() + "_" + multipartFile.getOriginalFilename()));
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath,"s_"+uploadFileName));
 					//섬네일형식의 파일 생성
 					System.out.println("111111");
 					//System.out.println(multipartFile.getInputStream());
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(),thumbnail, 100, 100);
+					//Thumbnailator.createThumbnail(multipartFile.getInputStream(),thumbnail, 100, 100);
 					System.out.println("222222");
 					thumbnail.close();
-					System.out.println("33333");
-					
+					System.out.println("33333");	
 				}//if문(checkImageType메서드) 끝
 				
 				//AttachVo에 저장된 데이터를 배열에 추가
@@ -163,9 +166,56 @@ public class UploadController {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}//trycatch문 끝
-			
 		}//for문 끝
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}//uploadAjaxPost 끝
+	
+	
+	//이미지 주소 생성
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> getFile(String fileName)  {
 		
-	}//ajaxpost메서드 끝
+		System.out.println(fileName);
+		
+		File file = new File("D:\\01-STUDY\\upload\\"+fileName);
+		
+		ResponseEntity<byte[]> result = null;
+		
+		HttpHeaders headers = new HttpHeaders();
+		
+		try {
+			headers.add("Content-Type", Files.probeContentType(file.toPath()));
+			
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers , HttpStatus.OK);
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}		
+		return result;
+	} // getFile 끝
+	
+	//다운로드 주소 생성
+	@RequestMapping(value = "/download", method = RequestMethod.GET)
+	public ResponseEntity<Resource> downloadFile(String fileName){
+		
+		Resource resource = new FileSystemResource("D:\\01-STUDY\\upload\\"+fileName);
+		
+		//다운로드 시 파일의 이름을 처리
+		String resourceName = resource.getFilename();
+		
+		HttpHeaders headers = new HttpHeaders();
+		
+		try {
+			// 다운로드 파일이름이 한글일 때, 깨지지 않게 하기 위한 설정
+			headers.add("Content-Disposition", "attachment;filename=" + new String(resourceName.getBytes("utf-8"),"ISO-8859-1"));
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<>(resource, headers, HttpStatus.OK);
+	}
+	
+	
 }

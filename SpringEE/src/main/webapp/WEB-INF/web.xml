@@ -41,6 +41,16 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- MultipartFilter 적용 -->
+    <filter>
+        <filter-name>MultipartFilter</filter-name>
+        <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MultipartFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- MultipartFilter 적용 -->
 
 	<!-- 한글깨짐 방지 -->
 	<!-- filter와 filter-mapping을 만들어 준다. -->
