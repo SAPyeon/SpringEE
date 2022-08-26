@@ -5,9 +5,14 @@
 
 <mapper namespace="org.sap.mapper.BoardMapper">
 
+	<!-- 제목, 내용을 board테이블 insert -->
 	<insert id="write">
-		insert into board(title, content,id)
-		values(#{title},#{content},#{id})
+		<selectKey keyProperty="bno" order="BEFORE" resultType="int">
+			select max(bno)+1 bno
+			from board
+		</selectKey>
+		insert into board(bno,title, content,id)
+		values(#{bno},#{title},#{content},#{id})
 	</insert>
 
 	<select id="list" resultType="org.sap.model.BoardVo">
@@ -25,8 +30,9 @@
 					where content like concat('%', #{keyword}, '%')
 				</when>
 				<otherwise>
-					where title  like concat('%', #{keyword}, '%')
-					OR content like concat('%', #{keyword}, '%')
+					where title like concat('%', #{keyword}, '%')
+					OR content
+					like concat('%', #{keyword}, '%')
 				</otherwise>
 			</choose>
 		</if>
@@ -39,8 +45,8 @@
 	</select>
 
 	<select id="detail" resultType="org.sap.model.BoardVo">
-		select * from board where
-		bno=#{bno};
+		select * from board 
+		where bno=#{bno};
 	</select>
 	<update id="cntup">
 		update board
@@ -49,7 +55,8 @@
 	</update>
 	<update id="modify">
 		update board
-		set title = #{title} , content = #{content}
+		set title = #{title} , content =
+		#{content}
 		where bno = #{bno};
 	</update>
 
@@ -69,8 +76,9 @@
 					where content like concat('%', #{keyword}, '%')
 				</when>
 				<otherwise>
-					where title  like concat('%', #{keyword}, '%')
-					OR content like concat('%', #{keyword}, '%')
+					where title like concat('%', #{keyword}, '%')
+					OR content
+					like concat('%', #{keyword}, '%')
 				</otherwise>
 			</choose>
 		</if>

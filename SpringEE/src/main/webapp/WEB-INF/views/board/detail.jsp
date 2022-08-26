@@ -8,9 +8,10 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/js/reply.js"></script>
+<script type="text/javascript" src="/resources/js/attach.js"></script>
 <style type="text/css">
-li{
-list-style: none;
+li {
+	list-style: none;
 }
 </style>
 </head>
@@ -19,7 +20,7 @@ list-style: none;
 		<h1>상세페이지</h1>
 		<table>
 			<tr>
-				<td><input type="hidden" value="${detail.bno}" name="bno"></td>
+				<td><input type="hidden" value="${detail.bno}" name="bno" id="bno"></td>
 				<td><input type="text" value="${userid}" name="userid"></td>
 			</tr>
 			<tr>
@@ -29,6 +30,9 @@ list-style: none;
 			<tr>
 				<td>내용</td>
 				<td><textarea rows="10px" cols="20px" name="content">${detail.content}</textarea></td>
+			</tr>
+			<tr>
+				<td colspan="2" id="uploadResult"><ul></ul></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="수정" formaction="/board/modify"></td>
@@ -48,6 +52,6 @@ list-style: none;
 		<ul id="replyUL">
 		</ul>
 	</div>
-	
+
 </body>
 </html>

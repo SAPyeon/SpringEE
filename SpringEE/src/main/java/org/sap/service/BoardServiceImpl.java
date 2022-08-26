@@ -2,7 +2,9 @@ package org.sap.service;
 
 import java.util.ArrayList;
 
+import org.sap.mapper.BoardAttachMapper;
 import org.sap.mapper.BoardMapper;
+import org.sap.model.AttachFileVo;
 import org.sap.model.BoardVo;
 import org.sap.model.CriteriaVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
-	BoardMapper bm;
+	BoardMapper bm; //board 테이블 mapper
+	
+	@Autowired
+	BoardAttachMapper bam; //attach테이블 mapper
 
 	// BoardService에서 설계되어진 write추상메서드를 구현
 	public void write(BoardVo bvo) {
@@ -21,6 +26,11 @@ public class BoardServiceImpl implements BoardService {
 		// 메서드의 매개변수를 통해 BoardVo를 호출
 		// BoardMapper의 write메서드를 사용
 		bm.write(bvo);
+		bvo.getAttach().forEach(attach->{
+			//AttachFileVo에 있는 bno에 BoardVo에 있는 bno를 저장
+			attach.setBno(bvo.getBno());
+			bam.insert(attach);
+		});
 	}
 
 	public ArrayList<BoardVo> list(CriteriaVo cri) {
@@ -42,8 +52,13 @@ public class BoardServiceImpl implements BoardService {
 	public void remove(BoardVo bvo) {
 		bm.remove(bvo);
 	}
-
+	//total가져오기
 	public int total(CriteriaVo cri) {
 		return bm.total(cri);
 	}
+	//첨부파일 직접 구현
+	public ArrayList<AttachFileVo> attachlist(int bno){
+		return bam.attachlist(bno);
+	}
+	
 }

@@ -60,8 +60,14 @@ $(document).ready(function(){
 			success:function(result){
 				console.log(result);
 				var str = "";
+				var input = "";
 				$(result).each(function(i,obj){
 					//console.log(obj.uploadPath)
+					input += `<input type="text" name="attach[${i}].fileName" value="${obj.fileName}"><br>`;
+					input += `<input type="text" name="attach[${i}].uuid" value="${obj.uuid}"><br>`;
+					input += `<input type="text" name="attach[${i}].image" value="${obj.image}"><br>`;
+					input += `<input type="text" name="attach[${i}].uploadPath" value="${obj.uploadPath}"><br>`;
+					console.log(input)
 					//만약 image결과가 true면
 					if(obj.image){
 						//아래를 실행
@@ -73,10 +79,10 @@ $(document).ready(function(){
 						var filePath = encodeURIComponent(obj.uploadPath+"/" + obj.uuid + "_" + obj.fileName); //uri주소로 바꿔줌 \\ -> %로
 						str = `<li><a href="/download?fileName=${filePath}">${obj.fileName}</a></li>`
 					}										
-				})
-				
+				})		
 				$("#uploadResult ul").html(str);
-					
+				$("#form").append(input).submit();	
+				
 			}
 		})//ajax끝
 		

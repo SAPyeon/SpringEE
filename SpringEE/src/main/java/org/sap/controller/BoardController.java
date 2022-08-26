@@ -1,16 +1,22 @@
 package org.sap.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
+import org.sap.model.AttachFileVo;
 import org.sap.model.BoardVo;
 import org.sap.model.CriteriaVo;
 import org.sap.model.PageVo;
 import org.sap.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -48,12 +54,21 @@ public class BoardController {
 	// 게시판 글쓰기 페이지(insert 이루어 지는 서버)
 	@RequestMapping(value = "/board/write", method = RequestMethod.POST)
 	public String writePost(BoardVo bvo) {
+	System.out.println(bvo);
 	// 비즈니스 영역 연결한 후 BoardService에 있는 write메소드를 호출
 	bs.write(bvo);
 	return "redirect:/board/list"; // model.addAttribute가 있는 /board/list 실행
 	}
 	
-	//RedirectAttributes 포함하여 작성
+	//해당게시물의 첨부파일의 데이터를 ajax로 전송
+	@RequestMapping(value = "/attachlist", method = RequestMethod.GET)
+	public ResponseEntity<ArrayList<AttachFileVo>> attachlist(int bno){
+		
+		return new ResponseEntity<>(bs.attachlist(bno), HttpStatus.OK);
+	}
+	
+	
+	//게시판 글 수정하기 , RedirectAttributes 포함하여 작성
 	@RequestMapping(value = "/board/modify", method = RequestMethod.POST)
 	public String modify(BoardVo bvo, RedirectAttributes rttr) {
 	//글 수정
@@ -62,6 +77,7 @@ public class BoardController {
 	// detail.jsp에서 수정된 결과를 확인하기 위한 화면이동
 	return "redirect:/board/detail";
 	}
+	
 	
 	//게시판 글 삭제하기
 	@RequestMapping(value="/board/remove", method= RequestMethod.POST)

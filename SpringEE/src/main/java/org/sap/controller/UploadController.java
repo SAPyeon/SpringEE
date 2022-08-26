@@ -111,7 +111,7 @@ public class UploadController {
 		}
 
 		// for(배열명:변수명)
-		for (MultipartFile multipartFile:uploadFile) {
+		for (MultipartFile multipartFile : uploadFile) {
 			
 			//AttachFileVo 클래스의 새로운 주소를 반복적으로 생성하여
 			//ArrayList에 저장
@@ -120,7 +120,7 @@ public class UploadController {
 			
 			System.out.println(multipartFile.getOriginalFilename());// 파일의 실제네임
 			System.out.println(multipartFile.getSize()); // 파일 크기
-
+			
 			// UUID 적용(UUID_multipartFile.getOriginalFilename());
 			UUID uuid = UUID.randomUUID();
 			System.out.println("UUID=" + uuid.toString());
@@ -141,16 +141,15 @@ public class UploadController {
 			System.out.println(saveFile);
 			
 			// 파일을 전송(transferTo)
-			try { // transferTo() 메서드에 예외가 있으면
+			try { // transferTo() 메서드에 예외가 없으면
 				multipartFile.transferTo(saveFile); //서버로 원본파일 전송
 				//내가 서버에 올리고자 하는 파일이 이미지이면,
 				if(checkImageType(saveFile)) {
 					//AttachFileVo의 image 변수에 저장()
 					attachVo.setImage(true);					
 					System.out.println("abcd");
-					
 					//파일 생성
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath,"s_"+uploadFileName));
+					FileOutputStream thumbnail = new FileOutputStream(new File( uploadPath,"/s_"+uploadFileName));
 					//섬네일형식의 파일 생성
 					System.out.println("111111");
 					//System.out.println(multipartFile.getInputStream());
@@ -165,12 +164,12 @@ public class UploadController {
 				System.out.println(list);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
+				System.out.println("오류남");
 			}//trycatch문 끝
 		}//for문 끝
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}//uploadAjaxPost 끝
-	
-	
+		
 	//이미지 주소 생성
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getFile(String fileName)  {

@@ -8,7 +8,7 @@ import org.sap.model.CriteriaVo;
 public interface BoardMapper {
 	// 글쓰기에 해당되는 DB작업 설계
 	public void write(BoardVo bvo);
-
+	
 	// 게시판 리스트에 해당하는 DB작업설계
 	public ArrayList<BoardVo> list(CriteriaVo cri);
 

@@ -11,8 +11,7 @@
 </head>
 <body>
 	<h1>게시판 글쓰기 화면</h1>
-	<form action="/board/write" method="post">
-
+	<form action="/board/write" method="post" id="form">
 		<div>
 			제목 <input type="text" name="title">
 		</div>
@@ -22,19 +21,15 @@
 		<div>
 			아이디<input type="text" name="id" value="${userid}">
 		</div>
-		<div>
-			<input type="file" name="fileName"><br> 
-			<input type="file" name="uuid"><br> 
-			<input type="file" name="uploadpath"><br> 
-			<input type="file" name="image"><br>
-		</div>
+		
 		<div>
 			파일첨부<input type="file" name="uploadFile" multiple>
 		</div>
 		<div>
 			<button type="button" id="uploadBtn">글쓰기</button>
 		</div>
-
+		<div >
+		</div>
 		<div id="uploadResult">
 			<ul>
 				<!-- <img src="/resources/img/10261708_h.jpg"> -->
