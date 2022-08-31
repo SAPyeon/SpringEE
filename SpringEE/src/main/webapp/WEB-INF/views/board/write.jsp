@@ -23,12 +23,11 @@
 		</div>
 		
 		<div>
-			파일첨부<input type="file" name="uploadFile" multiple>
+			파일첨부<input type="file" name="uploadFile" multiple id="upload">
 		</div>
+		<ul id="blah"> </ul>
 		<div>
 			<button type="button" id="uploadBtn">글쓰기</button>
-		</div>
-		<div >
 		</div>
 		<div id="uploadResult">
 			<ul>

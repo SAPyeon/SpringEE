@@ -1,6 +1,7 @@
 package org.sap.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,11 +38,10 @@ public class UploadController {
 		String uploadFolder = "D:\\01-STUDY\\upload";
 
 		// for(배열명:변수명)
-
 		for (MultipartFile multipartFile : uploadFile) {
 			System.out.println(multipartFile.getOriginalFilename());// 파일의 실제네임
 			System.out.println(multipartFile.getSize()); // 파일 크기
-
+			
 			// 파일저장
 			// 어느폴더에, 어떤파일이름으로
 			File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
@@ -75,7 +75,6 @@ public class UploadController {
 		System.out.println("Format적용날짜 = " + str.toString());
 		// 2022-08-24 -> 2022\08\24로 변경
 		return str.replace("-", "\\");
-
 	}
 	
 	// 내가 올리고자 하는 파일이 이미지 파일인지 아닌지 구분하는 메서드 선언
@@ -148,15 +147,13 @@ public class UploadController {
 					//AttachFileVo의 image 변수에 저장()
 					attachVo.setImage(true);					
 					System.out.println("abcd");
+					FileInputStream in = new FileInputStream(saveFile);
+					//System.out.println(in);
 					//파일 생성
-					FileOutputStream thumbnail = new FileOutputStream(new File( uploadPath,"/s_"+uploadFileName));
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath,"/s_"+uploadFileName));
 					//섬네일형식의 파일 생성
-					System.out.println("111111");
-					//System.out.println(multipartFile.getInputStream());
-					//Thumbnailator.createThumbnail(multipartFile.getInputStream(),thumbnail, 100, 100);
-					System.out.println("222222");
+					Thumbnailator.createThumbnail(in,thumbnail, 100, 100);
 					thumbnail.close();
-					System.out.println("33333");	
 				}//if문(checkImageType메서드) 끝
 				
 				//AttachVo에 저장된 데이터를 배열에 추가
@@ -215,6 +212,5 @@ public class UploadController {
 		
 		return new ResponseEntity<>(resource, headers, HttpStatus.OK);
 	}
-	
 	
 }

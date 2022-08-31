@@ -15,7 +15,6 @@
 	</div>
 	<div>
 		<input type="button" id="uploadBtn" value="파일전송">
-
 	</div>
 	<div id="uploadResult">
 		<ul>
@@ -24,5 +23,3 @@
 	</div>
 </body>
 </html>
-
-

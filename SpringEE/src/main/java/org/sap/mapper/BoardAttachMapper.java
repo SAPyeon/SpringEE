@@ -9,4 +9,6 @@ public interface BoardAttachMapper {
 	public void insert(AttachFileVo attach);
 	//해당게시물의 첨부파일 조회
 	public ArrayList<AttachFileVo> attachlist(int bno);
+	//해당게시물 첨부파일 삭제
+	public void remove(int bno);
 }

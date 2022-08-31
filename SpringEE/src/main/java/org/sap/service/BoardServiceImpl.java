@@ -51,6 +51,7 @@ public class BoardServiceImpl implements BoardService {
 	// BoardService에서 설계되어진 remove 추상메서드를 구현
 	public void remove(BoardVo bvo) {
 		bm.remove(bvo);
+		bam.remove(bvo.getBno());
 	}
 	//total가져오기
 	public int total(CriteriaVo cri) {

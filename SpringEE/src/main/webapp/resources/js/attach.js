@@ -11,7 +11,7 @@ $(document).ready(function(){
 			//만약 image결과가 true이면
 			if(attach.image){
 				//아래를 실행
-				var filePath = encodeURIComponent(attach.uploadPath+"/" + attach.uuid + "_" + attach.fileName); //uri주소로 바꿔줌 \\ -> %로
+				var filePath = encodeURIComponent(attach.uploadPath+ "/s_"+attach.uuid + "_" + attach.fileName); //uri주소로 바꿔줌 \\ -> %로
 				console.log(filePath)
 				str+=`<li><img src = "/display?fileName=${filePath}"></li>`;
 			}else{//그렇지 않으면

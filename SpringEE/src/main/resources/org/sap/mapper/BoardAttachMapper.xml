@@ -13,6 +13,11 @@
 	<select id="attachlist" resultType="org.sap.model.AttachFileVo">
 		select *
 		from attach
-		where bno=#{bno};
+		where
+		bno=#{bno};
 	</select>
+	<delete id="remove">
+		delete from attach 
+		where bno=#{bno}
+	</delete>
 </mapper>

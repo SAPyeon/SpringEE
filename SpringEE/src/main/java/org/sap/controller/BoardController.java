@@ -64,7 +64,7 @@ public class BoardController {
 	@RequestMapping(value = "/attachlist", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<AttachFileVo>> attachlist(int bno){
 		
-		return new ResponseEntity<>(bs.attachlist(bno), HttpStatus.OK);
+	return new ResponseEntity<>(bs.attachlist(bno), HttpStatus.OK);
 	}
 	
 	
